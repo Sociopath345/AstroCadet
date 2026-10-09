@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LunaGuard: Junior Astronaut Mission Trainer | NASA Space Apps</title>
+    <!-- Phaser 3 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Background Canvas for Animated Starfield & Nebula -->
+    <canvas id="star-canvas"></canvas>
+
+    <div id="app-container">
+        <!-- Top Navigation & Global Controls -->
+        <header class="top-nav">
+            <div class="brand-badge">
+                <span class="brand-logo-icon">🚀</span>
+                <div class="brand-title">LUNAGUARD <span>TRAINER</span></div>
+            </div>
+            <div class="nav-controls">
+                <button id="sound-toggle-btn" class="nav-btn" title="Toggle Sound FX">
+                    <span id="sound-icon">🔊</span> AUDIO
+                </button>
+                <button id="lang-toggle-btn" class="nav-btn" title="Toggle Language">
+                    🌐 <span id="lang-code-text">EN</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- SCREEN 1: MISSION BRIEFING -->
+        <main id="screen-briefing" class="screen-view active">
+            <div class="briefing-hero">
+                <div class="hero-badge">NASA SPACE APPS PRACTICE CHALLENGE</div>
+                <h1 class="hero-title" data-lang-key="app_title">LunaGuard: Junior Astronaut Mission Trainer</h1>
+                <p class="hero-desc" data-lang-key="app_subtitle">
+                    Take command of a deep-space outpost! Balance competing life support, power generation, food production, and radiation shielding across 5 demanding mission shifts.
+                </p>
+
+                <!-- 4 Astronaut Crew Preview Cards -->
+                <div id="crew-preview-row" class="crew-preview-row"></div>
+
+                <button id="btn-to-dest" class="btn-primary" data-lang-key="btn_start_briefing">
+                    ENTER MISSION CONTROL ➔
+                </button>
+            </div>
+        </main>
+
+        <!-- SCREEN 2: DESTINATION SELECTION -->
+        <section id="screen-destination" class="screen-view">
+            <div style="text-align: center; margin-bottom: 12px;">
+                <h2 class="hero-title" style="font-size: 32px;" data-lang-key="btn_select_dest">SELECT OUTPOST DESTINATION</h2>
+            </div>
+            <div class="dest-grid">
+                <!-- Moon Card -->
+                <div class="dest-card" data-dest="moon">
+                    <div class="planet-art-container planet-moon"></div>
+                    <h3 class="dest-name" data-lang-key="dest_moon_title">LUNA BASE (THE MOON)</h3>
+                    <p class="dest-desc" data-lang-key="dest_moon_desc"></p>
+                    <div class="dest-stats-badges">
+                        <span class="stat-pill" data-lang-key="dest_moon_mass">Weight Limit: 8,000 kg</span>
+                        <span class="stat-pill">Solar Flux: High</span>
+                        <span class="stat-pill">Darkness: 14-Day Night</span>
+                    </div>
+                </div>
+
+                <!-- Mars Card -->
+                <div class="dest-card" data-dest="mars">
+                    <div class="planet-art-container planet-mars"></div>
+                    <h3 class="dest-name" data-lang-key="dest_mars_title">ARES OUTPOST (MARS)</h3>
+                    <p class="dest-desc" data-lang-key="dest_mars_desc"></p>
+                    <div class="dest-stats-badges">
+                        <span class="stat-pill" data-lang-key="dest_mars_mass">Weight Limit: 12,000 kg</span>
+                        <span class="stat-pill">Dust Storm Risk: Severe</span>
+                        <span class="stat-pill">Water Recycling: Critical</span>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 10px;">
+                <button id="btn-to-payload" class="btn-primary" disabled style="opacity: 0.5;" data-lang-key="btn_proceed_payload">
+                    CONFIGURE PAYLOAD & ROCKET ➔
+                </button>
+            </div>
+        </section>
+
+        <!-- SCREEN 3: PAYLOAD & ROCKET CONFIGURATOR -->
+        <section id="screen-payload" class="screen-view">
+            <div class="payload-layout">
+                <!-- Left: Category Selection & Draggable/Clickable Items -->
+                <div class="glass-panel" style="display: flex; flex-direction: column;">
+                    <div id="category-tabs" class="category-tabs"></div>
+                    <div id="category-items-list" class="items-grid"></div>
+                </div>
+
+                <!-- Right: Rocket Drop Zone & Live Mass Validation -->
+                <div class="glass-panel rocket-staging-panel">
+                    <div class="mass-meter-box">
+                        <div class="mass-labels">
+                            <span style="color: #c9d1d9;">PAYLOAD MASS THRESHOLD</span>
+                            <span id="mass-text-display" style="color: var(--accent-yellow);">0 / 8,000 kg</span>
+                        </div>
+                        <div class="mass-bar-bg">
+                            <div id="mass-bar-fill" class="mass-bar-fill"></div>
+                        </div>
+                    </div>
+
+                    <div id="rocket-slots-grid" class="rocket-slots-grid"></div>
+
+                    <div id="payload-validator-msg" class="status-validator-box invalid">
+                        Configure payload according to mission rules.
+                    </div>
+
+                    <button id="btn-launch-mission" class="btn-primary btn-launch" style="width: 100%; margin-top: 14px;" disabled data-lang-key="btn_launch">
+                        🚀 LAUNCH MISSION
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 4: LAUNCH ANIMATION CANVAS -->
+        <section id="screen-launch" class="screen-view" style="padding: 10px;">
+            <div id="phaser-game-container"></div>
+        </section>
+
+        <!-- SCREEN 5: OUTPOST SIMULATION & MISSION SHIFTS -->
+        <section id="screen-outpost" class="screen-view">
+            <div class="outpost-layout">
+                <!-- Left: Resource Gauges & Crew Vitals -->
+                <div class="sidebar-vitals">
+                    <div class="res-gauge-card">
+                        <div class="res-header">
+                            <span data-lang-key="res_power">⚡ Power Grid</span>
+                            <span id="res-val-power" style="color: var(--accent-yellow);">80%</span>
+                        </div>
+                        <div class="res-bar-wrap"><div id="res-fill-power" class="res-fill fill-green"></div></div>
+                    </div>
+                    <div class="res-gauge-card">
+                        <div class="res-header">
+                            <span data-lang-key="res_oxygen">🫁 Oxygen (O₂)</span>
+                            <span id="res-val-oxygen" style="color: var(--accent-cyan);">80%</span>
+                        </div>
+                        <div class="res-bar-wrap"><div id="res-fill-oxygen" class="res-fill fill-green"></div></div>
+                    </div>
+                    <div class="res-gauge-card">
+                        <div class="res-header">
+                            <span data-lang-key="res_water">💧 Water Reserves</span>
+                            <span id="res-val-water" style="color: #38bdf8;">75%</span>
+                        </div>
+                        <div class="res-bar-wrap"><div id="res-fill-water" class="res-fill fill-green"></div></div>
+                    </div>
+                    <div class="res-gauge-card">
+                        <div class="res-header">
+                            <span data-lang-key="res_food">🥬 Food Supply</span>
+                            <span id="res-val-food" style="color: var(--accent-green);">70%</span>
+                        </div>
+                        <div class="res-bar-wrap"><div id="res-fill-food" class="res-fill fill-green"></div></div>
+                    </div>
+                    <div class="res-gauge-card">
+                        <div class="res-header">
+                            <span data-lang-key="res_shield">🛡️ Shielding</span>
+                            <span id="res-val-shield" style="color: #c084fc;">50%</span>
+                        </div>
+                        <div class="res-bar-wrap"><div id="res-fill-shield" class="res-fill fill-yellow"></div></div>
+                    </div>
+                    <div class="res-gauge-card">
+                        <div class="res-header">
+                            <span data-lang-key="res_health">❤️ Crew Health</span>
+                            <span id="res-val-health" style="color: var(--accent-red);">100%</span>
+                        </div>
+                        <div class="res-bar-wrap"><div id="res-fill-health" class="res-fill fill-green"></div></div>
+                    </div>
+
+                    <button id="btn-nasa-insight" class="nav-btn" style="margin-top: auto; justify-content: center;" data-lang-key="btn_learn_more">
+                        🔬 NASA Science Insight
+                    </button>
+                </div>
+
+                <!-- Center: Interactive Animated 2D Base Map -->
+                <div class="outpost-canvas-wrapper">
+                    <div class="canvas-header-bar">
+                        <div class="shift-badge">
+                            <span data-lang-key="msg_shift">SHIFT</span>: <span id="hud-shift-num">1 / 5</span>
+                        </div>
+                        <div class="score-badge">
+                            <span data-lang-key="msg_score">SCORE</span>: <span id="hud-score-num">250 PTS</span>
+                        </div>
+                    </div>
+                    <canvas id="outpost-map-canvas" style="width: 100%; height: 100%;"></canvas>
+                </div>
+
+                <!-- Right: Emergency Dilemmas & Trade-off Decisions -->
+                <div class="sidebar-events">
+                    <div class="event-box">
+                        <div class="event-header">
+                            <span>⚠️</span> <span id="event-title">Mission Event</span>
+                        </div>
+                        <p id="event-desc" class="event-desc"></p>
+                        <div id="event-choices-list" class="choices-list"></div>
+                    </div>
+
+                    <button id="btn-next-shift" class="btn-primary btn-launch" style="width: 100%; margin-top: auto;" disabled data-lang-key="btn_next_shift">
+                        RUN NEXT MISSION SHIFT ➔
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 6: MISSION REPORT & LEARNING DEBRIEF -->
+        <section id="screen-report" class="screen-view">
+            <div class="briefing-hero" style="max-width: 900px;">
+                <h2 id="report-outcome-title" class="hero-title" style="font-size: 36px;">MISSION ACCOMPLISHED</h2>
+                <p id="report-outcome-desc" class="hero-desc"></p>
+                
+                <div class="score-badge" style="font-size: 24px; padding: 12px 32px;">
+                    FINAL SCORE: <span id="report-score-display">1,250 PTS</span>
+                </div>
+
+                <div style="width: 100%; text-align: left; max-height: 280px; overflow-y: auto;">
+                    <h3 style="font-family: var(--font-heading); color: var(--accent-yellow); margin-bottom: 12px;">DECISION & TRADE-OFF LOG</h3>
+                    <div id="report-decisions-list"></div>
+                </div>
+
+                <button id="btn-replay" class="btn-primary" data-lang-key="btn_play_again">
+                    🔄 TRAIN AGAIN / NEW MISSION
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- NASA Science Modal -->
+    <div id="nasa-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="nasa-modal-title" class="modal-title">NASA Science Insight</h3>
+                <button id="modal-close-btn" class="modal-close-btn">&times;</button>
+            </div>
+            <p id="nasa-modal-text" class="modal-body"></p>
+            <a id="nasa-modal-link" href="#" target="_blank" class="btn-primary" style="display: inline-flex; text-decoration: none; padding: 10px 20px; font-size: 13px;">
+                Explore Official NASA Research ↗
+            </a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/audio.js"></script>
+    <script src="js/lang.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>

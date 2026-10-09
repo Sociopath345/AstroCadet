@@ -1,0 +1,14 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment and logs
+*.log
+node_modules/
+.vscode/
+.idea/
+
+# Scratch & Prompts
+prompt.txt
+scratch/
