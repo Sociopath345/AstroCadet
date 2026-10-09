@@ -42,6 +42,9 @@ class SpaceGame {
         this.moonBaseImg = new Image();
         this.moonBaseImg.src = 'assets/moon-base.jpg';
 
+        this.baseImg = new Image();
+        this.baseImg.src = 'base_image.jpg';
+
         this.init();
     }
 
@@ -715,9 +718,13 @@ class SpaceGame {
 
         ctx.clearRect(0, 0, w, h);
 
+        const img = (this.moonBaseImg && this.moonBaseImg.complete && this.moonBaseImg.naturalWidth > 0) 
+            ? this.moonBaseImg 
+            : (this.baseImg && this.baseImg.complete && this.baseImg.naturalWidth > 0 ? this.baseImg : null);
+
         // 1. Draw 3D Isometric Moon Base Background Image
-        if (this.moonBaseImg && this.moonBaseImg.complete && this.moonBaseImg.naturalWidth > 0) {
-            ctx.drawImage(this.moonBaseImg, 0, 0, w, h);
+        if (img) {
+            ctx.drawImage(img, 0, 0, w, h);
 
             // If Mars is selected, apply atmospheric red dust tint
             if (this.selectedDest && this.selectedDest.id === 'mars') {
@@ -725,13 +732,14 @@ class SpaceGame {
                 ctx.fillRect(0, 0, w, h);
             }
         } else {
-            // Fallback dark gradient
-            const grad = ctx.createLinearGradient(0, 0, 0, h);
-            grad.addColorStop(0, '#060a16');
-            grad.addColorStop(0.65, '#3a4154');
-            grad.addColorStop(1, '#1b1f2b');
-            ctx.fillStyle = grad;
-            ctx.fillRect(0, 0, w, h);
+            // Fallback planetary gradient
+            ctx.fillStyle = this.selectedDest ? this.selectedDest.surfaceColor : '#3a4154';
+            ctx.beginPath();
+            ctx.moveTo(0, h * 0.65);
+            ctx.bezierCurveTo(w * 0.3, h * 0.6, w * 0.7, h * 0.7, w, h * 0.65);
+            ctx.lineTo(w, h);
+            ctx.lineTo(0, h);
+            ctx.fill();
         }
 
         const t = Date.now() * 0.002;
