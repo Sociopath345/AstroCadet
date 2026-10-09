@@ -101,10 +101,114 @@ window.MISSION_DATA = {
     },
 
     crewMembers: [
-        { id: 'c1', name: 'Commander Aung', role: { en: 'Mission Commander', my: 'မစ်ရှင် ကွပ်ကဲရေးမှူး' }, avatar: '👨‍🚀', color: '#00f0ff' },
-        { id: 'c2', name: 'Dr. Thida', role: { en: 'Astrobiologist & ECLSS', my: 'ဇီဝဗေဒနှင့် အသက်ကယ် ပညာရှင်' }, avatar: '👩‍🚀', color: '#39ff14' },
-        { id: 'c3', name: 'Engineer Kyaw', role: { en: 'Power Grid Specialist', my: 'လျှပ်စစ်နှင့် စက်မှု အင်ဂျင်နီယာ' }, avatar: '👨‍🚀', color: '#ffe600' },
-        { id: 'c4', name: 'Dr. Su', role: { en: 'Flight Medical Officer', my: 'အာကာသ ဆေးဘက်ဆိုင်ရာ အရာရှိ' }, avatar: '👩‍🚀', color: '#ff0077' }
+        {
+            id: 'c1',
+            name: 'Commander Kyaw',
+            title: { en: 'Expedition Commander', my: 'မစ်ရှင် အကြီးအကဲ' },
+            role: { en: 'Orbital Flight Veteran & Crisis Tactician', my: 'ဝါရင့် အာကာသယာဉ်မှူးနှင့် ဗျူဟာမှူး' },
+            avatar: '👨‍🚀',
+            color: '#00f0ff',
+            bio: {
+                en: 'Legendary 3-time veteran of the Lunar Gateway missions with over 1,800 hours of EVA spacewalks. Renowned for razor-sharp crisis management under pressure.',
+                my: 'လကမ္ဘာ မစ်ရှင်များတွင် ၃ ကြိမ်တိုင် တာဝန်ထမ်းဆောင်ခဲ့ပြီး အာကာသလမ်းလျှောက်မှု နာရီ ၁,၈၀၀ ကျော် မှတ်တမ်းတင်ထားသော ဝါရင့် မစ်ရှင်ကွပ်ကဲရေးမှူး။'
+            },
+            achievements: [
+                { title: { en: '🏆 The 0.02s Thrust Miracle', my: '🏆 ၀.၀၂ စက္ကန့် တွန်းအား အံ့ဖွယ်' }, desc: { en: 'Manually executed pinpoint orbital insertion during thruster computer blackout on Artemis IX.', my: 'ကွန်ပျူတာ ချို့ယွင်းနေစဉ် ဒုံးပျံကို ကိုယ်တိုင်တိကျစွာ ပတ်လမ်းထဲသို့ မောင်းနှင်နိုင်ခဲ့သည်။' } },
+                { title: { en: '🎖️ Deep-Space Medal of Honor', my: '🎖️ အာကာသ ဂုဏ်ထူးဆောင် တံဆိပ်' }, desc: { en: 'Held the record for longest continuous zero-g command shift (142 days without system error).', my: '၁၄၂ ရက်ကြာ ချို့ယွင်းချက်မရှိ အာကာသစခန်းကို အောင်မြင်စွာ ကွပ်ကဲခဲ့သည်။' } },
+                { title: { en: '🌟 Solar Flare Evacuation Maestro', my: '🌟 နေရောင်ခြည်မုန်တိုင်း ကယ်ဆယ်ရေး' }, desc: { en: 'Guided a 12-person international science team into subterranean lava tubes in under 4 minutes.', my: '၄ မိနစ်အတွင်း သိပ္ပံပညာရှင် ၁၂ ဦးကို မုန်တိုင်းအန္တရာယ်မှ လုံခြုံစွာ ကယ်ထုတ်နိုင်ခဲ့သည်။' } }
+            ],
+            bonus: { en: '+10% Mission Score & +5 Morale Boost on decisions', my: 'မစ်ရှင်ရမှတ် +10% နှင့် စိတ်ဓာတ်ခွန်အား +5 တိုးစေသည်' }
+        },
+        {
+            id: 'c2',
+            name: 'Dr. Sein',
+            title: { en: 'Chief Astrobiologist', my: 'အဓိက ဇီဝဗေဒ ပညာရှင်' },
+            role: { en: 'Hydroponics & Space Crop Specialist', my: 'ဖန်လုံအိမ်နှင့် အပင်စိုက်ပျိုးရေး ပညာရှင်' },
+            avatar: '👩‍🔬',
+            color: '#39ff14',
+            bio: {
+                en: 'Pioneer of microgravity aeroponics and synthetic regolith botanics. Created radiation-hardened space lettuce and bioluminescent lunar crops.',
+                my: 'ဆွဲငင်အားမဲ့ စိုက်ပျိုးရေးနှင့် လမြေဆီလွှာ အပင်မျိုးဗီဇ ပညာရှင်။ အာကာသအတွင်း အာဟာရပြည့် ဟင်းသီးဟင်းရွက်များကို အောင်မြင်စွာ စိုက်ပျိုးထုတ်လုပ်ခဲ့သူ။'
+            },
+            achievements: [
+                { title: { en: '🌱 Lunar Strawberry Bio-Dome', my: '🌱 လကမ္ဘာ စတော်ဘယ်ရီ စိုက်ခင်း' }, desc: { en: 'First human to cultivate and harvest sweet edible strawberries in 1/6th lunar gravity.', my: 'လကမ္ဘာ ဆွဲငင်အား၌ ပထမဆုံး စတော်ဘယ်ရီ စိုက်ပျိုးအောင်မြင်ခဲ့သည်။' } },
+                { title: { en: '🧪 Super CO₂ Bio-Filter', my: '🧪 အဆင့်မြင့် CO₂ စုပ်ယူမှုစနစ်' }, desc: { en: 'Engineered photosynthetic algae strain absorbing CO₂ 400% faster than Earth trees.', my: 'သစ်ပင်များထက် ကာဗွန်ဒိုင်အောက်ဆိုက်ကို ၄ ဆ ပိုမိုစုပ်ယူနိုင်သော ရေညှိမျိုးစိတ် တီထွင်ခဲ့သည်။' } },
+                { title: { en: '🌾 Zero-G Agronomy Laureate', my: '🌾 အာကာသ စိုက်ပျိုးရေး ထူးချွန်ဆု' }, desc: { en: 'Eradicated root-rot mold in the Mars Deep-Space Transit Habitat hydroponics bay.', my: 'အင်္ဂါဂြိုဟ်ယာဉ်ပေါ်ရှိ ရေပေါ်စိုက်ခင်း မှိုရောဂါ ကပ်ဆိုးကို ကာကွယ်ကုသနိုင်ခဲ့သည်။' } }
+            ],
+            bonus: { en: '+15% Food Yield & -10% Water Consumption for Crops', my: 'သီးနှံထွက်နှုန်း +15% နှင့် ရေသုံးစွဲမှု ၁၀% လျှော့ချပေးသည်' }
+        },
+        {
+            id: 'c3',
+            name: 'Dr. Thein',
+            title: { en: 'ECLSS Atmosphere Lead', my: 'အသက်ကယ်စနစ် အကြီးအကဲ' },
+            role: { en: 'Closed-Loop Chemist & Life Support Architect', my: 'လေထုနှင့် ရေပြန်လည်သန့်စင်မှု ပညာရှင်' },
+            avatar: '👨‍🔬',
+            color: '#00f0ff',
+            bio: {
+                en: 'The mastermind behind the 99.4% efficiency Sabatier oxygen-recovery reactor. Believes every single milliliter of recycled water in deep space is pure liquid gold.',
+                my: '၉၉.၄% အထိ အောက်ဆီဂျင်နှင့် ရေ ပြန်လည်သန့်စင်ပေးနိုင်သော Sabatier စနစ်ကို ဖန်တီးခဲ့သည့် အသက်ကယ် လေထုပညာရှင်။'
+            },
+            achievements: [
+                { title: { en: '♻️ The 99.4% Purity Record', my: '♻️ ၉၉.၄% သန့်စင်မှု စံချိန်တင်' }, desc: { en: 'Overclocked ISS Sabatier reactor during a meteoroid hull breach without losing 1L of oxygen.', my: 'ဥက္ကာခဲထိမှန်စဉ် အောက်ဆီဂျင် တစ်စက်မျှ မဆုံးရှုံးစေဘဲ စနစ်ကို အပြည့်အဝ ထိန်းသိမ်းနိုင်ခဲ့သည်။' } },
+                { title: { en: '🫧 Martian Permafrost Synthesizer', my: '🫧 အင်္ဂါဂြိုဟ် ရေခဲသန့်စင်မှု' }, desc: { en: 'Synthesized 500L of pure drinking water from frozen Martian dust in under 2 hours.', my: 'အင်္ဂါဂြိုဟ် ဖုန်ရေခဲမှ ၂ နာရီအတွင်း သောက်ရေ သန့် ၅၀၀ လီတာ ထုတ်လုပ်ခဲ့သည်။' } },
+                { title: { en: '🫁 Atmospheric Equilibrium Award', my: '🫁 လေထု ညီမျှမှု ထူးချွန်ဆု' }, desc: { en: 'Maintained flawless 21% O₂ / 78% N₂ atmosphere across 3 orbital bio-domes for 1 year.', my: 'အာကာသစခန်း ၃ ခုလုံးတွင် ပြီးပြည့်စုံသော လေထုဖိအားနှင့် အောက်ဆီဂျင်ကို ၁ နှစ်လုံး ထိန်းညှိခဲ့သည်။' } }
+            ],
+            bonus: { en: '+20% Water Recovery & +5 Baseline Oxygen Reserve', my: 'ရေပြန်လည်ရရှိမှု +20% နှင့် အောက်ဆီဂျင် အရံ +5 ပိုမိုရရှိသည်' }
+        },
+        {
+            id: 'c4',
+            name: 'Dr. Hein',
+            title: { en: 'Chief Medical Officer', my: 'ဆေးဘက်ဆိုင်ရာ အရာရှိချုပ်' },
+            role: { en: 'Flight Surgeon & Radiation Biophysicist', my: 'အာကာသ ခွဲစိတ်ဆရာဝန်နှင့် ရောင်ခြည်ဇီဝပညာရှင်' },
+            avatar: '👨‍⚕️',
+            color: '#ff0077',
+            bio: {
+                en: 'Pioneered zero-gravity robotic micro-surgeries and DNA cellular repair therapy shielding astronauts against high-energy cosmic rays.',
+                my: 'အာကာသ ဆေးဘက်ဆိုင်ရာ ထူးချွန် ခွဲစိတ်ဆရာဝန်။ အာကာသရောင်ခြည်ဒဏ်မှ ဆဲလ်များ ပျက်စီးခြင်းကို ကာကွယ်သည့် ကုထုံးများကို တီထွင်သူ။'
+            },
+            achievements: [
+                { title: { en: '💉 Zero-G Autonomous Micro-Surgery', my: '💉 ဆွဲငင်အားမဲ့ အလိုအလျောက် ခွဲစိတ်မှု' }, desc: { en: 'Successfully performed autonomous robotic surgery in zero gravity during trans-lunar flight.', my: 'လခရီးစဉ်အတွင်း ဆွဲငင်အားမဲ့ အခြေအနေ၌ အောင်မြင်စွာ ခွဲစိတ်ကုသနိုင်ခဲ့သည်။' } },
+                { title: { en: '🛡️ Radiation Sickness Nullifier', my: '🛡️ ရောင်ခြည်သင့်မှု ကာကွယ်ဆေး' }, desc: { en: 'Formulated the antioxidant cocktail that reduced solar storm radiation damage by 80%.', my: 'နေရောင်ခြည်မုန်တိုင်းဒဏ်ကြောင့် ဆဲလ်ပျက်စီးမှုကို ၈၀% အထိ လျှော့ချပေးသည့် ဆေးဖော်စပ်ခဲ့သည်။' } },
+                { title: { en: '❤️ Iron Heart Vitality Award', my: '❤️ နှလုံးကျန်းမာရေး ထိန်းသိမ်းမှု' }, desc: { en: 'Maintained prime athletic crew cardiovascular health through a 180-day dark lunar freeze.', my: '၁၈၀ ရက်ကြာ အေးခဲသော လကမ္ဘာညဉ့်တွင် ယာဉ်မှူးများ၏ ကျန်းမာရေးကို ထိပ်တန်းအဆင့် ထိန်းသိမ်းခဲ့သည်။' } }
+            ],
+            bonus: { en: 'Crew Health takes -25% less damage from radiation & exhaustion', my: 'ရောင်ခြည်နှင့် မောပန်းမှုကြောင့် ကျန်းမာရေးထိခိုက်မှုကို ၂၅% လျှော့ချပေးသည်' }
+        },
+        {
+            id: 'c5',
+            name: 'Engineer Thwin',
+            title: { en: 'Power Grid Architect', my: 'စွမ်းအင်ကွန်ရက် အင်ဂျင်နီယာ' },
+            role: { en: 'Fission Surface Power & Solar Array Specialist', my: 'နျူကလီးယားနှင့် ဆိုလာစွမ်းအင် ပညာရှင်' },
+            avatar: '👨‍🔧',
+            color: '#ffe600',
+            bio: {
+                en: 'Nuclear electrical engineer who architected the Stirling fission surface reactor and self-cleaning electrodynamic solar arrays.',
+                my: 'စွမ်းအင်မြင့် နျူကလီးယားနှင့် ဆိုလာစနစ်များကို ဒီဇိုင်းရေးဆွဲခဲ့သူ။ အလွန်အေးခဲသော ညဘက်များတွင် စခန်းအား လျှပ်စစ်မပြတ်အောင် စွမ်းဆောင်နိုင်သူ။'
+            },
+            achievements: [
+                { title: { en: '⚡ Fission Core Whisperer', my: '⚡ နျူကလီးယားစက် ချို့ယွင်းမှု ပြုပြင်ခြင်း' }, desc: { en: 'Repaired overheating plasma coil at -140°C in complete lunar far-side darkness.', my: 'အနှုတ် ၁၄၀ ဒီဂရီ အမှောင်ထုထဲတွင် အပူလွန်ကဲနေသော ပလာစမာစက်ကို အောင်မြင်စွာ ပြင်ဆင်ခဲ့သည်။' } },
+                { title: { en: '🔋 Supercapacitor Overdrive', my: '🔋 စွမ်းအားမြင့် ဘက်ထရီ တီထွင်မှု' }, desc: { en: 'Engineered solid-state battery array that doubles energy density in cryogenic cold.', my: 'အေးခဲသော ရာသီဥတုတွင် စွမ်းအင်နှစ်ဆ သိုလှောင်နိုင်သည့် ဘက်ထရီစနစ် တီထွင်ခဲ့သည်။' } },
+                { title: { en: '☀️ Solar Flux Optimizer', my: '☀️ ဆိုလာ ဖုန်ခါစနစ် တီထွင်မှု' }, desc: { en: 'Designed electrodynamic solar panels that automatically shed 99% of charged regolith dust.', my: 'လဖုန်မှုန့် ၉၉% ကို အလိုအလျောက် ခါထုတ်ပေးနိုင်သော ဆိုလာပြားများ ဖန်တီးခဲ့သည်။' } }
+            ],
+            bonus: { en: '+15 Max Power Storage & +10% Solar Generation Efficiency', my: 'လျှပ်စစ်သိုလှောင်မှု +15 နှင့် ဆိုလာထုတ်လုပ်မှု +10% တိုးတက်စေသည်' }
+        },
+        {
+            id: 'c6',
+            name: 'Engineer Thike',
+            title: { en: 'Shielding & Robotics Lead', my: 'အကာအကွယ်နှင့် စက်ရုပ် အင်ဂျင်နီယာ' },
+            role: { en: 'Regolith Sintering & Swarm Rover Engineer', my: 'စခန်းကြံ့ခိုင်မှုနှင့် စက်ရုပ်ယန္တရား ပညာရှင်' },
+            avatar: '👩‍🔧',
+            color: '#9d4edd',
+            bio: {
+                en: 'Heavy robotics and composite regolith specialist who builds impenetrable radiation bunkers using 3D-printed interlocking lunar volcanic basalt.',
+                my: 'လကျောက်သားများဖြင့် 3D ပရင့်ထုတ်ကာ မည်သည့် ဥက္ကာခဲနှင့် ရောင်ခြည်မုန်တိုင်းမျှ မဖောက်ထွင်းနိုင်သော စခန်းအကာအရံများကို တည်ဆောက်သူ။'
+            },
+            achievements: [
+                { title: { en: '🏰 Regolith Fortress Architect', my: '🏰 လမြေသား ခံတပ် တည်ဆောက်သူ' }, desc: { en: 'Built interlocking lava-tube bunker withstanding direct micrometeoroid impacts at 20 km/s.', my: 'တစ်စက္ကန့် ကီလိုမီတာ ၂၀ နှုန်းရှိသော ဥက္ကာခဲဒဏ်ကို ခံနိုင်သည့် ခံတပ်ကို တည်ဆောက်ခဲ့သည်။' } },
+                { title: { en: '🤖 Swarm Rover Maestro', my: '🤖 စက်ရုပ်အဖွဲ့ ကွပ်ကဲမှု စံချိန်' }, desc: { en: 'Programmed autonomous swarm of 8 mini-rovers to complete a rocket landing pad in 48 hours.', my: '၄၈ နာရီအတွင်း ဒုံးပျံဆင်းသက်ကွင်းတစ်ခုလုံးကို စက်ရုပ် ၈ စီးဖြင့် အပြီးတည်ဆောက်ခဲ့သည်။' } },
+                { title: { en: '🪛 Rapid Airlock Sealer', my: '🪛 အရေးပေါ် လေလုံစနစ် ပြုပြင်ခြင်း' }, desc: { en: 'Patched catastrophic airlock breach in 45 seconds during a violent lunar storm.', my: 'ပြင်းထန်သော မုန်တိုင်းအတွင်း ၄၅ စက္ကန့်အတွင်း လေယိုစိမ့်မှုကို ချက်ချင်း ပိတ်ဆို့နိုင်ခဲ့သည်။' } }
+            ],
+            bonus: { en: '+20 Baseline Radiation Shielding & Faster Outpost Repairs', my: 'ရောင်ခြည်ကာကွယ်မှု +20 နှင့် စခန်းပြုပြင်မှု ပိုမိုမြန်ဆန်စေသည်' }
+        }
     ],
 
     shifts: [

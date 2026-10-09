@@ -20,8 +20,8 @@ window.LANG = {
 
     dict: {
         app_title: {
-            en: 'LunaGuard: Junior Astronaut Mission Trainer',
-            my: 'LunaGuard: ဂျူနီယာ အာကာသယာဉ်မှူး မစ်ရှင် သင်တန်း'
+            en: 'AstroCadet: Junior Astronaut Mission Trainer',
+            my: 'AstroCadet: ဂျူနီယာ အာကာသယာဉ်မှူး မစ်ရှင် သင်တန်း'
         },
         app_subtitle: {
             en: 'NASA Space Apps Challenge — Outpost Command & Resource Management Simulator',
@@ -114,7 +114,13 @@ window.LANG = {
         // Status messages
         msg_shift: { en: 'Mission Shift', my: 'မစ်ရှင် အလှည့်' },
         msg_score: { en: 'Mission Score', my: 'မစ်ရှင် ရမှတ်' },
-        msg_crew_safe: { en: 'Astronauts on Duty: 4 Active', my: 'တာဝန်ကျ ယာဉ်မှူးများ: ၄ ဦး လှုပ်ရှားလျက်' },
+        msg_crew_safe: { en: 'Astronauts on Duty: 6 Active Specialists', my: 'တာဝန်ကျ ယာဉ်မှူးများ: ၆ ဦး လှုပ်ရှားလျက်' },
+
+        // Astronaut Dossier
+        crew_dossier_title: { en: 'ASTRONAUT DOSSIER', my: 'ယာဉ်မှူး ကိုယ်ရေးအချက်အလက်' },
+        crew_inspect_hint: { en: 'Click any astronaut to inspect achievements & stats', my: 'ယာဉ်မှူးကို နှိပ်၍ အချက်အလက်နှင့် အောင်မြင်မှုများကို ကြည့်ပါ' },
+        crew_trait_label: { en: 'MISSION TRAIT & PASSIVE BONUS:', my: 'မစ်ရှင် အထူးစွမ်းဆောင်ရည်:' },
+        crew_achievements_label: { en: 'COOL ACHIEVEMENTS & SPACE RECORDS:', my: 'ထူးချွန်သော အာကာသ စံချိန်တင် အောင်မြင်မှုများ:' },
 
         // Outcome titles
         outcome_success: {
@@ -123,7 +129,7 @@ window.LANG = {
         },
         outcome_survived: {
             en: '✅ CREW SURVIVED: OUTPOST STABILIZED',
-            my: '✅ ယာဉ်မှူးများ ဘေးကင်းစွာ ရှင်သန်နိုင်ခဲ့သည်'
+            my: '✅ ယာဉ်မှူး ၆ ဦးလုံး ဘေးကင်းစွာ ရှင်သန်နိုင်ခဲ့သည်'
         },
         outcome_evac: {
             en: '⚠️ CRITICAL EMERGENCY: BASE EVACUATION ORDERED',

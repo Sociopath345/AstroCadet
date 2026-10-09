@@ -1,20 +1,21 @@
-# LunaGuard: Junior Astronaut Mission Trainer 🚀🪐
+# AstroCadet: Junior Astronaut Mission Trainer 🚀🪐
 
 [![NASA Space Apps Challenge](https://img.shields.io/badge/NASA_Space_Apps-Practice_Round-0B3D91?style=for-the-badge&logo=nasa&logoColor=white)](https://www.spaceappschallenge.org/)
 [![Phaser 3](https://img.shields.io/badge/Phaser-3.60.0-EA005E?style=for-the-badge&logo=phaser&logoColor=white)](https://phaser.io/)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-**LunaGuard** is an interactive, educational 2D Space Mission preparation and Outpost Survival / Resource Management Web Application built for the **NASA Space Apps Challenge** (*Build a Junior Astronaut Mission Trainer*).
+**AstroCadet** is an interactive, educational 2D Space Mission preparation and Outpost Survival / Resource Management Web Application built for the **NASA Space Apps Challenge** (*Build a Junior Astronaut Mission Trainer*).
 
 ---
 
 ## 🌌 Overview & Core Concept
 
-Players step into the shoes of an **Outpost Commander**, preparing a rocket payload within strict mass and destination constraints, launching to the Moon or Mars, and managing a 4-astronaut crew through 5 critical operational shifts.
+Players step into the shoes of an **Outpost Commander**, preparing a rocket payload within strict mass and destination constraints, launching to the Moon or Mars, and managing a 6-astronaut specialist crew through 5 critical operational shifts.
 
 ### 🌟 Key Features
 - **🌐 Dual-Language Support**: Seamless instant toggle between **English** and **Burmese (မြန်မာစာ)**.
+- **👨‍🚀 Interactive Astronaut Dossiers**: 6 unique specialist astronauts (*Commander Kyaw, Dr. Sein, Dr. Thein, Dr. Hein, Engineer Thwin, Engineer Thike*) with lore profiles, cool space achievements, and passive mission traits.
 - **🔊 Zero-Asset Procedural Audio**: Built-in **Web Audio API** synthesizer delivering high-tech UI sounds, alarms, engine rumble, and musical cues without any external media files.
 - **🚀 8-Category Payload Configurator**: Live mass-threshold calculation and destination constraint validation for Moon and Mars.
 - **🔥 Phaser 3 Launch & Transit Simulation**: Procedural particle fire, smoke physics, screen shake, and orbital arrival.
@@ -32,7 +33,7 @@ Players step into the shoes of an **Outpost Commander**, preparing a rocket payl
 [ Debriefing & Report ] 🠔 [ Outpost Survival Shifts ] 🠔 [ Rocket Launch Sequence ]
 ```
 
-1. **Briefing**: Meet the 4-astronaut specialist crew (*Commander Aung, Dr. Thida, Engineer Kyaw, Dr. Su*).
+1. **Briefing**: Meet and inspect the 6-astronaut specialist crew (*Commander Kyaw, Dr. Sein, Dr. Thein, Dr. Hein, Engineer Thwin, Engineer Thike*).
 2. **Destination**:
    - **Luna Base (Moon)**: Mass limit 8,000 kg, high solar energy, 14-day freezing lunar night, regolith shielding.
    - **Ares Outpost (Mars)**: Mass limit 12,000 kg, global dust storms, strict closed-loop water dependency.

@@ -138,7 +138,7 @@ class SpaceGame {
             if (icon) icon.textContent = enabled ? '🔊' : '🔇';
         });
 
-        // Modal close
+        // NASA Modal close
         document.getElementById('modal-close-btn').addEventListener('click', () => {
             window.soundFX.playClick();
             document.getElementById('nasa-modal').classList.remove('active');
@@ -146,6 +146,12 @@ class SpaceGame {
         document.getElementById('btn-nasa-insight').addEventListener('click', () => {
             window.soundFX.playClick();
             this.showNasaModal();
+        });
+
+        // Astronaut Dossier Modal close
+        document.getElementById('dossier-close-btn').addEventListener('click', () => {
+            window.soundFX.playClick();
+            document.getElementById('crew-dossier-modal').classList.remove('active');
         });
     }
 
@@ -167,14 +173,43 @@ class SpaceGame {
         const row = document.getElementById('crew-preview-row');
         if (!row) return;
         row.innerHTML = window.MISSION_DATA.crewMembers.map(c => `
-            <div class="crew-card">
-                <div class="crew-avatar">${c.avatar}</div>
+            <div class="crew-card" data-crew-id="${c.id}">
+                <div class="crew-avatar" style="filter: drop-shadow(0 0 8px ${c.color});">${c.avatar}</div>
                 <div class="crew-info">
-                    <h4>${c.name}</h4>
-                    <p>${c.role[window.LANG.current] || c.role.en}</p>
+                    <h4 style="color: ${c.color};">${c.name}</h4>
+                    <p style="font-size: 11px; color: var(--accent-yellow);">${c.title[window.LANG.current] || c.title.en}</p>
+                    <p style="font-size: 11px; color: var(--text-secondary);">${c.role[window.LANG.current] || c.role.en}</p>
                 </div>
             </div>
         `).join('');
+
+        row.querySelectorAll('.crew-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const crew = window.MISSION_DATA.crewMembers.find(c => c.id === card.dataset.crewId);
+                if (crew) this.showAstronautDossier(crew);
+            });
+        });
+    }
+
+    showAstronautDossier(c) {
+        window.soundFX.playSelect();
+        const modal = document.getElementById('crew-dossier-modal');
+        document.getElementById('dossier-avatar').textContent = c.avatar;
+        document.getElementById('dossier-name').textContent = c.name;
+        document.getElementById('dossier-name').style.color = c.color;
+        document.getElementById('dossier-role').textContent = `${c.title[window.LANG.current] || c.title.en} — ${c.role[window.LANG.current] || c.role.en}`;
+        document.getElementById('dossier-bio').textContent = c.bio[window.LANG.current] || c.bio.en;
+        document.getElementById('dossier-bonus').textContent = c.bonus[window.LANG.current] || c.bonus.en;
+
+        const achList = document.getElementById('dossier-achievements-list');
+        achList.innerHTML = c.achievements.map(a => `
+            <div class="achievement-item">
+                <h5>${a.title[window.LANG.current] || a.title.en}</h5>
+                <p>${a.desc[window.LANG.current] || a.desc.en}</p>
+            </div>
+        `).join('');
+
+        modal.classList.add('active');
     }
 
     selectDestination(destKey) {
@@ -462,8 +497,26 @@ class SpaceGame {
 
     renderOutpostScreen() {
         this.updateResourceHUD();
+        this.renderOutpostCrewDock();
         this.renderShiftEvent();
         this.renderOutpostMap();
+    }
+
+    renderOutpostCrewDock() {
+        const dock = document.getElementById('outpost-crew-dock');
+        if (!dock) return;
+        dock.innerHTML = window.MISSION_DATA.crewMembers.map(c => `
+            <button class="dock-avatar-btn" data-crew-id="${c.id}" title="${c.name} (${c.title[window.LANG.current] || c.title.en})">
+                ${c.avatar}
+            </button>
+        `).join('');
+
+        dock.querySelectorAll('.dock-avatar-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const crew = window.MISSION_DATA.crewMembers.find(c => c.id === btn.dataset.crewId);
+                if (crew) this.showAstronautDossier(crew);
+            });
+        });
     }
 
     updateResourceHUD() {
@@ -626,13 +679,29 @@ class SpaceGame {
         drawModule(w * 0.35, h * 0.75, '🛡️🏰', 'SHELTER', '#ff2a5f');
         drawModule(w * 0.65, h * 0.75, '🔬🚙', 'SCIENCE', '#9d4edd');
 
-        // Draw 4 Animated Astronauts
+        // Draw 6 Animated Astronauts at work stations
         const t = Date.now() * 0.002;
+        const stationOffsets = [
+            { name: 'Kyaw', sx: w * 0.5, sy: h * 0.42 },     // Main Hab
+            { name: 'Sein', sx: w * 0.8, sy: h * 0.48 },     // Bio-Farm
+            { name: 'Thein', sx: w * 0.42, sy: h * 0.58 },   // ECLSS
+            { name: 'Hein', sx: w * 0.58, sy: h * 0.58 },    // Med bay
+            { name: 'Thwin', sx: w * 0.2, sy: h * 0.48 },    // Power
+            { name: 'Thike', sx: w * 0.35, sy: h * 0.68 }    // Shelter
+        ];
+
         window.MISSION_DATA.crewMembers.forEach((c, idx) => {
-            const ax = (w * 0.3) + idx * (w * 0.12) + Math.sin(t + idx) * 12;
-            const ay = (h * 0.62) + Math.cos(t + idx * 2) * 6;
-            ctx.font = '20px sans-serif';
+            const st = stationOffsets[idx] || { sx: w * 0.5, sy: h * 0.6 };
+            const ax = st.sx + Math.sin(t + idx * 1.5) * 8;
+            const ay = st.sy + Math.cos(t + idx * 2.2) * 4;
+            
+            ctx.font = '18px sans-serif';
+            ctx.textAlign = 'center';
             ctx.fillText(c.avatar, ax, ay);
+
+            ctx.font = '10px Orbitron';
+            ctx.fillStyle = c.color;
+            ctx.fillText(c.name.split(' ')[1] || c.name, ax, ay + 14);
         });
     }
 

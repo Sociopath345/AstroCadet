@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LunaGuard: Junior Astronaut Mission Trainer | NASA Space Apps</title>
+    <title>AstroCadet: Junior Astronaut Mission Trainer | NASA Space Apps</title>
     <!-- Phaser 3 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
@@ -17,7 +17,7 @@
         <header class="top-nav">
             <div class="brand-badge">
                 <span class="brand-logo-icon">🚀</span>
-                <div class="brand-title">LUNAGUARD <span>TRAINER</span></div>
+                <div class="brand-title">ASTROCADET <span>TRAINER</span></div>
             </div>
             <div class="nav-controls">
                 <button id="sound-toggle-btn" class="nav-btn" title="Toggle Sound FX">
@@ -33,13 +33,18 @@
         <main id="screen-briefing" class="screen-view active">
             <div class="briefing-hero">
                 <div class="hero-badge">NASA SPACE APPS PRACTICE CHALLENGE</div>
-                <h1 class="hero-title" data-lang-key="app_title">LunaGuard: Junior Astronaut Mission Trainer</h1>
+                <h1 class="hero-title" data-lang-key="app_title">AstroCadet: Junior Astronaut Mission Trainer</h1>
                 <p class="hero-desc" data-lang-key="app_subtitle">
-                    Take command of a deep-space outpost! Balance competing life support, power generation, food production, and radiation shielding across 5 demanding mission shifts.
+                    Take command of a deep-space outpost! Balance competing life support, power generation, food production, and radiation shielding with your 6-specialist crew across 5 demanding mission shifts.
                 </p>
 
-                <!-- 4 Astronaut Crew Preview Cards -->
-                <div id="crew-preview-row" class="crew-preview-row"></div>
+                <!-- 6 Astronaut Crew Preview Cards -->
+                <div style="width: 100%;">
+                    <div style="font-size: 13px; color: var(--accent-yellow); margin-bottom: 8px; font-family: var(--font-heading); text-transform: uppercase;" data-lang-key="crew_inspect_hint">
+                        👆 Click any astronaut to inspect their profile & cool achievements
+                    </div>
+                    <div id="crew-preview-row" class="crew-preview-row"></div>
+                </div>
 
                 <button id="btn-to-dest" class="btn-primary" data-lang-key="btn_start_briefing">
                     ENTER MISSION CONTROL ➔
@@ -171,6 +176,14 @@
                         <div class="res-bar-wrap"><div id="res-fill-health" class="res-fill fill-green"></div></div>
                     </div>
 
+                    <!-- Interactive Active Crew Dock in Outpost -->
+                    <div class="crew-dock-box">
+                        <div style="font-size: 11px; font-family: var(--font-heading); color: var(--accent-cyan); margin-bottom: 6px; text-transform: uppercase;">
+                            👨‍🚀 SPECIALIST CREW DOCK
+                        </div>
+                        <div id="outpost-crew-dock" class="outpost-crew-dock"></div>
+                    </div>
+
                     <button id="btn-nasa-insight" class="nav-btn" style="margin-top: auto; justify-content: center;" data-lang-key="btn_learn_more">
                         🔬 NASA Science Insight
                     </button>
@@ -226,6 +239,37 @@
                 </button>
             </div>
         </section>
+    </div>
+
+    <!-- ASTRONAUT DOSSIER MODAL -->
+    <div id="crew-dossier-modal" class="modal-overlay">
+        <div class="modal-card dossier-card">
+            <div class="modal-header">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span id="dossier-avatar" class="dossier-header-avatar">👨‍🚀</span>
+                    <div>
+                        <h3 id="dossier-name" class="modal-title">Commander Kyaw</h3>
+                        <p id="dossier-role" style="font-size: 13px; color: var(--accent-cyan);"></p>
+                    </div>
+                </div>
+                <button id="dossier-close-btn" class="modal-close-btn">&times;</button>
+            </div>
+            <div class="dossier-body">
+                <p id="dossier-bio" class="dossier-bio-text"></p>
+                
+                <!-- Trait Bonus -->
+                <div class="dossier-trait-box">
+                    <span class="trait-label" data-lang-key="crew_trait_label">MISSION TRAIT & PASSIVE BONUS:</span>
+                    <span id="dossier-bonus" class="trait-val"></span>
+                </div>
+
+                <!-- Cool Achievements -->
+                <h4 style="font-family: var(--font-heading); font-size: 14px; color: var(--accent-yellow); margin: 16px 0 10px 0;" data-lang-key="crew_achievements_label">
+                    COOL ACHIEVEMENTS & SPACE RECORDS:
+                </h4>
+                <div id="dossier-achievements-list" class="dossier-achievements-list"></div>
+            </div>
+        </div>
     </div>
 
     <!-- NASA Science Modal -->
