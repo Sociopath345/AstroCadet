@@ -37,9 +37,6 @@ class SpaceGame {
         this.score = 0;
         this.phaserGame = null;
 
-        this.baseImg = new Image();
-        this.baseImg.src = 'base_image.jpg';
-
         this.init();
     }
 
@@ -639,19 +636,14 @@ class SpaceGame {
 
         ctx.clearRect(0, 0, w, h);
 
-        // Draw Base Image or fallback
-        if (this.baseImg && this.baseImg.complete && this.baseImg.naturalWidth > 0) {
-            ctx.drawImage(this.baseImg, 0, 0, w, h);
-        } else {
-            // Draw Planetary Surface
-            ctx.fillStyle = this.selectedDest.surfaceColor;
-            ctx.beginPath();
-            ctx.moveTo(0, h * 0.65);
-            ctx.bezierCurveTo(w * 0.3, h * 0.6, w * 0.7, h * 0.7, w, h * 0.65);
-            ctx.lineTo(w, h);
-            ctx.lineTo(0, h);
-            ctx.fill();
-        }
+        // Draw Planetary Surface
+        ctx.fillStyle = this.selectedDest.surfaceColor;
+        ctx.beginPath();
+        ctx.moveTo(0, h * 0.65);
+        ctx.bezierCurveTo(w * 0.3, h * 0.6, w * 0.7, h * 0.7, w, h * 0.65);
+        ctx.lineTo(w, h);
+        ctx.lineTo(0, h);
+        ctx.fill();
 
         // Draw Outpost Modules
         const drawModule = (x, y, icon, label, glow = '#00f0ff') => {
@@ -672,19 +664,20 @@ class SpaceGame {
             ctx.fillText(label, x, y + 30);
         };
 
-        // Nodes are mapped to positions in the base image:
-        // POWER (Solar): Top-Left
-        // MAIN HAB: Center
-        // BIO-FARM (Greenhouse): Top-Right
-        // SCIENCE (Water/Resource cylinder): Bottom-Left
-        // SHELTER (Bunker): Bottom-Right
+        // Connecting tunnels
+        ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
+        ctx.lineWidth = 6;
+        ctx.beginPath();
+        ctx.moveTo(w * 0.2, h * 0.55);
+        ctx.lineTo(w * 0.5, h * 0.5);
+        ctx.lineTo(w * 0.8, h * 0.55);
+        ctx.stroke();
 
-        drawModule(w * 0.23, h * 0.28, '☀️⚡', 'POWER', '#ffe600');
-        drawModule(w * 0.50, h * 0.45, '🏠🫁', 'MAIN HAB', '#00f0ff');
-        drawModule(w * 0.77, h * 0.28, '🌱🍅', 'BIO-FARM', '#00ff88');
-        drawModule(w * 0.77, h * 0.65, '🛡️🏰', 'SHELTER', '#ff2a5f');
-        drawModule(w * 0.23, h * 0.60, '🔬🚙', 'SCIENCE', '#9d4edd');
-
+        drawModule(w * 0.2, h * 0.55, '☀️⚡', 'POWER', '#ffe600');
+        drawModule(w * 0.5, h * 0.5, '🏠🫁', 'MAIN HAB', '#00f0ff');
+        drawModule(w * 0.8, h * 0.55, '🌱🍅', 'BIO-FARM', '#00ff88');
+        drawModule(w * 0.35, h * 0.75, '🛡️🏰', 'SHELTER', '#ff2a5f');
+        drawModule(w * 0.65, h * 0.75, '🔬🚙', 'SCIENCE', '#9d4edd');
 
         // Draw 6 Animated Astronauts at work stations
         const t = Date.now() * 0.002;
