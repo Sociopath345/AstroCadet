@@ -24,7 +24,7 @@ window.LANG = {
             my: 'AstroCadet: ဂျူနီယာ အာကာသယာဉ်မှူး မစ်ရှင် သင်တန်း'
         },
         app_subtitle: {
-            en: 'NASA Space Apps Challenge — Outpost Command & Resource Management Simulator',
+            en: 'NASA Space Apps Challenge — Build your rocket, manage a space base, and make smart choices with your astronaut crew!',
             my: 'NASA Space Apps Challenge — အာကာသစခန်း စီမံခန့်ခွဲမှုနှင့် အသက်ရှင်သန်ရေး သရုပ်ပြဂိမ်း'
         },
         btn_start_briefing: {
@@ -59,14 +59,14 @@ window.LANG = {
         // Destinations
         dest_moon_title: { en: 'LUNA BASE (THE MOON)', my: 'လကမ္ဘာ အခြေစိုက်စခန်း' },
         dest_moon_desc: { 
-            en: 'Earth\'s closest neighbor. High solar flux during day, but requires surviving intense radiation, fine lunar dust, and a 14-day freezing lunar night.',
+            en: 'Earth\'s closest neighbor! Lots of bright sunshine during the day, but you must survive freezing cold nights (-180°C), sharp moon dust, and space radiation.',
             my: 'ကမ္ဘာနှင့် အနီးဆုံးနေရာ။ နေ့ဘက်တွင် နေရောင်ခြည်ကောင်းစွာရသော်လည်း ပြင်းထန်သော ရောင်ခြည်ဖြာထွက်မှု၊ လမျက်နှာပြင်ဖုန်မှုန့်နှင့် ၁၄ ရက်ကြာ အေးခဲသောအမှောင်ထုကို ကျော်ဖြတ်ရပါမည်။'
         },
         dest_moon_mass: { en: 'Weight Limit: 8,000 kg', my: 'သယ်ဆောင်နိုင်သည့် အလေးချိန်: 8,000 kg' },
 
         dest_mars_title: { en: 'ARES OUTPOST (MARS)', my: 'အင်္ဂါဂြိုဟ် အခြေစိုက်စခန်း' },
         dest_mars_desc: { 
-            en: 'The Red Planet. Longer transit, lower solar energy, atmospheric dust storms that can obscure arrays for weeks, and critical reliance on closed-loop water recovery.',
+            en: 'The mysterious Red Planet! A long, exciting trip. Giant dust storms can block the Sun for weeks, so recycling water and saving battery power are super important.',
             my: 'အနီရောင်ဂြိုဟ်။ ခရီးဝေး၊ နေရောင်ခြည်စွမ်းအင်နည်း၊ ရက်သတ္တပတ်ပေါင်းများစွာ နေရောင်ကိုဖုံးလွှမ်းနိုင်သော ဖုန်မုန်တိုင်းများနှင့် ရေပြန်လည်သန့်စင်သုံးစွဲမှု အလွန်အရေးကြီးသည်။'
         },
         dest_mars_mass: { en: 'Weight Limit: 12,000 kg', my: 'သယ်ဆောင်နိုင်သည့် အလေးချိန်: 12,000 kg' },
@@ -74,40 +74,40 @@ window.LANG = {
         // Categories
         cat_engine: { en: 'Rocket Engine', my: 'ဒုံးပျံအင်ဂျင်' },
         cat_fuel: { en: 'Fuel Capacity', my: 'လောင်စာဆီ' },
-        cat_capsule: { en: 'Crew Habitat', my: 'အာကာသယာဉ်မှူး အခန်း' },
-        cat_life_support: { en: 'Life Support (ECLSS)', my: 'အသက်ကယ်စနစ် (ECLSS)' },
-        cat_food: { en: 'Food & Crops', my: 'အစားအစာနှင့် စိုက်ပျိုးရေး' },
-        cat_power: { en: 'Power Systems', my: 'စွမ်းအင်စနစ်' },
-        cat_landing: { en: 'Landing & Shielding', my: 'ဆင်းသက်မှုနှင့် အကာအကွယ်' },
-        cat_exploration: { en: 'Exploration & Science', my: 'စူးစမ်းလေ့လာရေးနှင့် သိပ္ပံ' },
+        cat_capsule: { en: 'Crew Quarters', my: 'အာကာသယာဉ်မှူး အခန်း' },
+        cat_life_support: { en: 'Air & Water Recycler', my: 'အသက်ကယ်စနစ် (ECLSS)' },
+        cat_food: { en: 'Food & Greenhouse', my: 'အစားအစာနှင့် စိုက်ပျိုးရေး' },
+        cat_power: { en: 'Power & Solar Panels', my: 'စွမ်းအင်စနစ်' },
+        cat_landing: { en: 'Landing Gear & Shield', my: 'ဆင်းသက်မှုနှင့် အကာအကွယ်' },
+        cat_exploration: { en: 'Exploration Rover', my: 'စူးစမ်းလေ့လာရေးနှင့် သိပ္ပံ' },
 
         // Resources
         res_power: { en: 'Power Grid', my: 'လျှပ်စစ်စွမ်းအင်' },
         res_oxygen: { en: 'Oxygen (O₂)', my: 'အောက်ဆီဂျင်' },
-        res_water: { en: 'Water Reserves', my: 'ရေသန့်ပမာဏ' },
+        res_water: { en: 'Water Supply', my: 'ရေသန့်ပမာဏ' },
         res_food: { en: 'Food Supply', my: 'အစားအစာ' },
-        res_shield: { en: 'Shield Integrity', my: 'ရောင်ခြည်ကာကွယ်မှု' },
+        res_shield: { en: 'Shield Strength', my: 'ရောင်ခြည်ကာကွယ်မှု' },
         res_health: { en: 'Crew Health', my: 'ယာဉ်မှူးကျန်းမာရေး' },
 
         // Outpost Rooms
-        room_power: { en: 'Power Core & Arrays', my: 'စွမ်းအင်နှင့် ဆိုလာစနစ်' },
-        room_life: { en: 'ECLSS Atmosphere Hub', my: 'အသက်ကယ် လေထုစနစ်' },
-        room_farm: { en: 'Hydroponic Greenhouse', my: 'ရေပေါ်စိုက်ပျိုးရေး ဖန်လုံအိမ်' },
-        room_water: { en: 'Water Filtration Unit', my: 'ရေပြန်လည်သန့်စင်စက်' },
-        room_shelter: { en: 'Regolith Storm Shelter', my: 'မုန်တိုင်းကာကွယ်ရေး အကာအရံ' },
+        room_power: { en: 'Solar Power Panels', my: 'စွမ်းအင်နှင့် ဆိုလာစနစ်' },
+        room_life: { en: 'Oxygen Life Support Hub', my: 'အသက်ကယ် လေထုစနစ်' },
+        room_farm: { en: 'Space Farm Greenhouse', my: 'ရေပေါ်စိုက်ပျိုးရေး ဖန်လုံအိမ်' },
+        room_water: { en: 'Water Recycler Unit', my: 'ရေပြန်လည်သန့်စင်စက်' },
+        room_shelter: { en: 'Storm Bunker Shield', my: 'မုန်တိုင်းကာကွယ်ရေး အကာအရံ' },
         room_science: { en: 'Science Research Lab', my: 'သိပ္ပံသုတေသန ဓာတ်ခွဲခန်း' },
 
         // Hints
         hint_mass_exceeded: {
-            en: '⚠️ WARNING: Payload mass exceeds destination limit! Lighten equipment.',
+            en: '⚠️ Too heavy! Your rocket is over the weight limit. Choose lighter gear.',
             my: '⚠️ သတိပေးချက်: သယ်ဆောင်သည့် အလေးချိန် ကန့်သတ်ချက်ထက် ကျော်လွန်နေပါသည်!'
         },
         hint_requirements_missing: {
-            en: 'Missing mandatory mission modules for selected destination.',
+            en: 'Please choose equipment for all rocket parts to get ready for liftoff!',
             my: 'ရွေးချယ်ထားသော မစ်ရှင်အတွက် မဖြစ်မနေလိုအပ်သော ပစ္စည်းများ မပြည့်စုံသေးပါ။'
         },
         hint_ready_to_launch: {
-            en: '✅ All systems nominal! Rocket payload validated. Ready for liftoff.',
+            en: '✅ All systems ready! Your rocket is packed and ready to fly!',
             my: '✅ စနစ်အားလုံး အဆင်သင့်ဖြစ်ပါပြီ! ဒုံးပျံကို လွှတ်တင်နိုင်ပါပြီ။'
         },
 
@@ -117,22 +117,22 @@ window.LANG = {
         msg_crew_safe: { en: 'Astronauts on Duty: 6 Active Specialists', my: 'တာဝန်ကျ ယာဉ်မှူးများ: ၆ ဦး လှုပ်ရှားလျက်' },
 
         // Astronaut Dossier
-        crew_dossier_title: { en: 'ASTRONAUT DOSSIER', my: 'ယာဉ်မှူး ကိုယ်ရေးအချက်အလက်' },
+        crew_dossier_title: { en: 'ASTRONAUT PROFILE', my: 'ယာဉ်မှူး ကိုယ်ရေးအချက်အလက်' },
         crew_inspect_hint: { en: 'Click any astronaut to inspect achievements & stats', my: 'ယာဉ်မှူးကို နှိပ်၍ အချက်အလက်နှင့် အောင်မြင်မှုများကို ကြည့်ပါ' },
-        crew_trait_label: { en: 'MISSION TRAIT & PASSIVE BONUS:', my: 'မစ်ရှင် အထူးစွမ်းဆောင်ရည်:' },
+        crew_trait_label: { en: 'SPECIAL MISSION SKILL & BONUS:', my: 'မစ်ရှင် အထူးစွမ်းဆောင်ရည်:' },
         crew_achievements_label: { en: 'COOL ACHIEVEMENTS & SPACE RECORDS:', my: 'ထူးချွန်သော အာကာသ စံချိန်တင် အောင်မြင်မှုများ:' },
 
         // Outcome titles
         outcome_success: {
-            en: '⭐ MISSION ACCOMPLISHED: EXEMPLAR COMMANDER!',
+            en: '⭐ MISSION ACCOMPLISHED: MASTER COMMANDER!',
             my: '⭐ မစ်ရှင်အောင်မြင်သည်: စံပြ မစ်ရှင်ကွပ်ကဲရေးမှူး!'
         },
         outcome_survived: {
-            en: '✅ CREW SURVIVED: OUTPOST STABILIZED',
+            en: '✅ CREW SURVIVED: OUTPOST IS SAFE!',
             my: '✅ ယာဉ်မှူး ၆ ဦးလုံး ဘေးကင်းစွာ ရှင်သန်နိုင်ခဲ့သည်'
         },
         outcome_evac: {
-            en: '⚠️ CRITICAL EMERGENCY: BASE EVACUATION ORDERED',
+            en: '⚠️ EMERGENCY EVACUATION: BASE SHUT DOWN',
             my: '⚠️ အရေးပေါ်အခြေအနေ: စခန်းမှ အရေးပေါ် ကယ်ထုတ်ခဲ့ရသည်'
         }
     }
