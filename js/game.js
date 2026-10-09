@@ -36,6 +36,11 @@ class SpaceGame {
         this.decisionHistory = [];
         this.score = 0;
         this.phaserGame = null;
+        this.hoveredStation = null;
+        this.outpostLoopActive = false;
+
+        this.moonBaseImg = new Image();
+        this.moonBaseImg.src = 'assets/moon-base.jpg';
 
         this.init();
     }
@@ -153,6 +158,65 @@ class SpaceGame {
             window.soundFX.playClick();
             document.getElementById('crew-dossier-modal').classList.remove('active');
         });
+
+        // Outpost Canvas Mouse Interactions
+        const mapCanvas = document.getElementById('outpost-map-canvas');
+        if (mapCanvas) {
+            mapCanvas.addEventListener('mousemove', (e) => {
+                if (this.state !== 'OUTPOST') return;
+                const rect = mapCanvas.getBoundingClientRect();
+                const mx = e.clientX - rect.left;
+                const my = e.clientY - rect.top;
+                const w = mapCanvas.width;
+                const h = mapCanvas.height;
+
+                const stations = [
+                    { id: 'hub', x: w * 0.50, y: h * 0.51, crewId: 'c1' },
+                    { id: 'solar', x: w * 0.23, y: h * 0.26, crewId: 'c5' },
+                    { id: 'farm', x: w * 0.76, y: h * 0.29, crewId: 'c2' },
+                    { id: 'water', x: w * 0.20, y: h * 0.64, crewId: 'c3' },
+                    { id: 'shelter', x: w * 0.77, y: h * 0.67, crewId: 'c6' },
+                    { id: 'rover', x: w * 0.49, y: h * 0.76, crewId: 'c4' }
+                ];
+
+                let found = null;
+                for (const s of stations) {
+                    const dist = Math.hypot(mx - s.x, my - s.y);
+                    if (dist < 45) {
+                        found = s;
+                        break;
+                    }
+                }
+
+                if (found) {
+                    if (this.hoveredStation !== found.id) {
+                        window.soundFX.playHover();
+                    }
+                    this.hoveredStation = found.id;
+                    mapCanvas.style.cursor = 'pointer';
+                } else {
+                    this.hoveredStation = null;
+                    mapCanvas.style.cursor = 'default';
+                }
+            });
+
+            mapCanvas.addEventListener('click', (e) => {
+                if (this.state !== 'OUTPOST' || !this.hoveredStation) return;
+                const stations = [
+                    { id: 'hub', crewId: 'c1' },
+                    { id: 'solar', crewId: 'c5' },
+                    { id: 'farm', crewId: 'c2' },
+                    { id: 'water', crewId: 'c3' },
+                    { id: 'shelter', crewId: 'c6' },
+                    { id: 'rover', crewId: 'c4' }
+                ];
+                const match = stations.find(s => s.id === this.hoveredStation);
+                if (match) {
+                    const crew = window.MISSION_DATA.crewMembers.find(c => c.id === match.crewId);
+                    if (crew) this.showAstronautDossier(crew);
+                }
+            });
+        }
     }
 
     updateScreen(screenState) {
@@ -166,6 +230,7 @@ class SpaceGame {
             this.updatePayloadHUD();
         } else if (screenState === 'OUTPOST') {
             this.renderOutpostScreen();
+            this.initOutpostMapLoop();
         }
     }
 
@@ -627,79 +692,142 @@ class SpaceGame {
         }
     }
 
+    initOutpostMapLoop() {
+        if (this.outpostLoopActive) return;
+        this.outpostLoopActive = true;
+        const loop = () => {
+            if (this.state === 'OUTPOST') {
+                this.renderOutpostMap();
+                requestAnimationFrame(loop);
+            } else {
+                this.outpostLoopActive = false;
+            }
+        };
+        requestAnimationFrame(loop);
+    }
+
     renderOutpostMap() {
         const canvas = document.getElementById('outpost-map-canvas');
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
-        const w = canvas.width = canvas.parentElement.clientWidth || 600;
-        const h = canvas.height = canvas.parentElement.clientHeight || 450;
+        const w = canvas.width = canvas.parentElement.clientWidth || 800;
+        const h = canvas.height = canvas.parentElement.clientHeight || 550;
 
         ctx.clearRect(0, 0, w, h);
 
-        // Draw Planetary Surface
-        ctx.fillStyle = this.selectedDest.surfaceColor;
-        ctx.beginPath();
-        ctx.moveTo(0, h * 0.65);
-        ctx.bezierCurveTo(w * 0.3, h * 0.6, w * 0.7, h * 0.7, w, h * 0.65);
-        ctx.lineTo(w, h);
-        ctx.lineTo(0, h);
-        ctx.fill();
+        // 1. Draw 3D Isometric Moon Base Background Image
+        if (this.moonBaseImg && this.moonBaseImg.complete && this.moonBaseImg.naturalWidth > 0) {
+            ctx.drawImage(this.moonBaseImg, 0, 0, w, h);
 
-        // Draw Outpost Modules
-        const drawModule = (x, y, icon, label, glow = '#00f0ff') => {
-            ctx.fillStyle = 'rgba(14, 24, 48, 0.9)';
-            ctx.strokeStyle = glow;
-            ctx.lineWidth = 2;
+            // If Mars is selected, apply atmospheric red dust tint
+            if (this.selectedDest && this.selectedDest.id === 'mars') {
+                ctx.fillStyle = 'rgba(180, 50, 20, 0.28)';
+                ctx.fillRect(0, 0, w, h);
+            }
+        } else {
+            // Fallback dark gradient
+            const grad = ctx.createLinearGradient(0, 0, 0, h);
+            grad.addColorStop(0, '#060a16');
+            grad.addColorStop(0.65, '#3a4154');
+            grad.addColorStop(1, '#1b1f2b');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, w, h);
+        }
+
+        const t = Date.now() * 0.002;
+
+        // Station Hotspot Coordinates corresponding to the 3D isometric artwork
+        const stations = [
+            { id: 'hub', label: 'COMMAND DOME', icon: '🏠', x: w * 0.50, y: h * 0.51, color: '#00f0ff', crew: 'Kyaw', stat: `Power: ${Math.round(this.resources.power)}%` },
+            { id: 'solar', label: 'SOLAR ARRAYS', icon: '☀️', x: w * 0.23, y: h * 0.26, color: '#ffe600', crew: 'Thwin', stat: '+35 kW Flux' },
+            { id: 'farm', label: 'BIO-GREENHOUSE', icon: '🌱', x: w * 0.76, y: h * 0.29, color: '#00ff88', crew: 'Sein', stat: `Food: ${Math.round(this.resources.food)}%` },
+            { id: 'water', label: 'ECLSS WATER TOWER', icon: '💧', x: w * 0.20, y: h * 0.64, color: '#38bdf8', crew: 'Thein', stat: `H₂O: ${Math.round(this.resources.water)}%` },
+            { id: 'shelter', label: 'REGOLITH BUNKER', icon: '🛡️', x: w * 0.77, y: h * 0.67, color: '#ff2a5f', crew: 'Thike', stat: `Shield: ${Math.round(this.resources.shield)}%` },
+            { id: 'rover', label: 'SCOUT ROVER', icon: '🚙', x: w * 0.49, y: h * 0.76, color: '#c084fc', crew: 'Hein', stat: 'Surveys Active' }
+        ];
+
+        // 2. Draw Animated Pulsing Glowing Energy Lines Along the 4 Connector Tubes
+        const hub = stations[0];
+        const podTargets = [stations[1], stations[2], stations[3], stations[4]];
+
+        podTargets.forEach((p, idx) => {
+            // Neon Tube Glow Line
+            ctx.strokeStyle = 'rgba(0, 240, 255, 0.45)';
+            ctx.lineWidth = 4;
             ctx.beginPath();
-            ctx.roundRect(x - 45, y - 40, 90, 80, 10);
+            ctx.moveTo(hub.x, hub.y);
+            ctx.lineTo(p.x, p.y);
+            ctx.stroke();
+
+            // Flowing Light Particles along the Tube
+            const pulseProgress = ((t * 0.6 + idx * 0.25) % 1);
+            const px = hub.x + (p.x - hub.x) * pulseProgress;
+            const py = hub.y + (p.y - hub.y) * pulseProgress;
+
+            ctx.fillStyle = '#ffffff';
+            ctx.shadowColor = '#00f0ff';
+            ctx.shadowBlur = 12;
+            ctx.beginPath();
+            ctx.arc(px, py, 4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        });
+
+        // 3. Draw Station Markers & Holographic Badges
+        stations.forEach(s => {
+            const isHovered = this.hoveredStation === s.id;
+            const pulse = Math.sin(t * 2) * 3;
+
+            // Holographic Pulse Ring
+            ctx.strokeStyle = s.color;
+            ctx.lineWidth = isHovered ? 3 : 1.5;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y - 12, (isHovered ? 26 : 22) + pulse, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // Holographic Floating Badge Box
+            const bw = 110;
+            const bh = 26;
+            const bx = s.x - bw / 2;
+            const by = s.y - 50;
+
+            ctx.fillStyle = 'rgba(10, 16, 32, 0.85)';
+            ctx.strokeStyle = s.color;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.roundRect(bx, by, bw, bh, 6);
             ctx.fill();
             ctx.stroke();
 
-            ctx.font = '28px sans-serif';
+            // Text
+            ctx.font = 'bold 9.5px Orbitron';
+            ctx.fillStyle = s.color;
             ctx.textAlign = 'center';
-            ctx.fillText(icon, x, y + 2);
+            ctx.fillText(`${s.icon} ${s.label}`, s.x, by + 11);
 
-            ctx.font = '11px Orbitron';
-            ctx.fillStyle = '#ffffff';
-            ctx.fillText(label, x, y + 30);
-        };
+            ctx.font = '8.5px Outfit';
+            ctx.fillStyle = '#c9d1d9';
+            ctx.fillText(`${s.stat} • ${s.crew}`, s.x, by + 21);
+        });
 
-        // Connecting tunnels
-        ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
-        ctx.lineWidth = 6;
-        ctx.beginPath();
-        ctx.moveTo(w * 0.2, h * 0.55);
-        ctx.lineTo(w * 0.5, h * 0.5);
-        ctx.lineTo(w * 0.8, h * 0.55);
-        ctx.stroke();
-
-        drawModule(w * 0.2, h * 0.55, '☀️⚡', 'POWER', '#ffe600');
-        drawModule(w * 0.5, h * 0.5, '🏠🫁', 'MAIN HAB', '#00f0ff');
-        drawModule(w * 0.8, h * 0.55, '🌱🍅', 'BIO-FARM', '#00ff88');
-        drawModule(w * 0.35, h * 0.75, '🛡️🏰', 'SHELTER', '#ff2a5f');
-        drawModule(w * 0.65, h * 0.75, '🔬🚙', 'SCIENCE', '#9d4edd');
-
-        // Draw 6 Animated Astronauts at work stations
-        const t = Date.now() * 0.002;
-        const stationOffsets = [
-            { name: 'Kyaw', sx: w * 0.5, sy: h * 0.42 },     // Main Hab
-            { name: 'Sein', sx: w * 0.8, sy: h * 0.48 },     // Bio-Farm
-            { name: 'Thein', sx: w * 0.42, sy: h * 0.58 },   // ECLSS
-            { name: 'Hein', sx: w * 0.58, sy: h * 0.58 },    // Med bay
-            { name: 'Thwin', sx: w * 0.2, sy: h * 0.48 },    // Power
-            { name: 'Thike', sx: w * 0.35, sy: h * 0.68 }    // Shelter
-        ];
-
+        // 4. Draw 6 Animated Astronauts moving at their stations
         window.MISSION_DATA.crewMembers.forEach((c, idx) => {
-            const st = stationOffsets[idx] || { sx: w * 0.5, sy: h * 0.6 };
-            const ax = st.sx + Math.sin(t + idx * 1.5) * 8;
-            const ay = st.sy + Math.cos(t + idx * 2.2) * 4;
-            
-            ctx.font = '18px sans-serif';
+            const st = stations[idx] || stations[0];
+            const ax = st.x + Math.sin(t * 1.5 + idx * 1.2) * 14;
+            const ay = st.y + 10 + Math.cos(t * 2 + idx) * 5;
+
+            // Small shadow
+            ctx.fillStyle = 'rgba(0,0,0,0.5)';
+            ctx.beginPath();
+            ctx.ellipse(ax, ay + 6, 8, 3, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Avatar & Name Tag
+            ctx.font = '16px sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText(c.avatar, ax, ay);
 
-            ctx.font = '10px Orbitron';
+            ctx.font = 'bold 9px Orbitron';
             ctx.fillStyle = c.color;
             ctx.fillText(c.name.split(' ')[1] || c.name, ax, ay + 14);
         });
